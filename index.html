@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #main {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .weather-info {
+            text-align: center;
+        }
+        .footer {
+            margin-top: 50px;
+        }
+        .footer a {
+            color: #333;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <h1>Weather App</h1>
+        <input type="text" id="search" placeholder="Enter City name">
+        <button onclick="checkWeather()">Generate</button>
+        <div class="weather-info">
+            <p><b>Temperature:</b> <span id="temperature">50°</span></p>
+            <p><b>Humidity:</b> <span id="hum2">30</span>%</p>
+            <p><b>Wind Speed:</b> <span id="wind2">20</span> Km/h</p>
+        </div>
+        <div class="footer">
+            <p>Contact the Developer:</p>
+            <a href="https://www.linkedin.com/in/bharadwaj-rachakonda-b36658258/">LinkedIn</a>
+            <a href="https://www.hackerrank.com/profile/rbharadwaj022">HackerRank</a>
+            <a href="https://github.com/BharadwajRachakonda">GitHub</a>
+            <a href="https://leetcode.com/rbharadwaj022/">LeetCode</a>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = "2f1d0201ede5dfe546513285c03f8ce6";
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+        async function checkWeather() {
+            const city = document.getElementById('search').value;
+            const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+            const data = await response.json();
+            console.log(data);
+            document.getElementById('temperature').innerHTML = Math.round(data.main.temp);
+            document.getElementById("hum2").innerHTML =  data.main.humidity;
+            document.getElementById("wind2").innerHTML =  data.wind.speed;
+        }
+    </script>
+</body>
+</html>
